@@ -26,9 +26,26 @@ class Router:
                 self.DV[dv_key] = distance
         return
     
-    def print_distance_table(self, t:int):
+    def print_distance_table(self, t:int, routers:List[str]):
+        if self.name in routers:
+            routers.remove(self.name)
+        
         print(f'Distance Table of router {self.name} at t={t}:')
+        # print header
+        print('', *routers, sep='\t')
+        for dest in routers:
+            if dest == self.name:
+                continue
+            # print destination and distance via next_hop
+            print(dest, end='\t')
+            for next_hop in routers:
+                if next_hop == self.name:
+                    continue
+                d = self.DV.get((dest, next_hop), 'INF')
+                print(d, end='\t')
+            print()
         print()
+        return
 
     def print_route_table(self):
         print(f'Routing Table of router X:')
@@ -88,6 +105,9 @@ class NetGraph:
         return
     
     def dv_update(self):
+        """
+            Update using the distance table information of neighbor nodes
+        """
         for edge in self.edges.values():
             r1, r2 = edge.router1, edge.router2
             r1.update_dv_from_neighbor(neighbor=r2, cost=edge.cost)
