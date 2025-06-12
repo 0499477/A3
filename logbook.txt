@@ -21,3 +21,4 @@
     21 : Define the Edge class to store the distance information between adjacent routers.
     22 : Define the NetGraph class to manage the routes and edges in the network, and implement the functions for adding routes and edges.
     23 : Update the add_edge function to ensure that all routers involved in the link update are added to the router table.
+    24 : Format the code using VSCode.
