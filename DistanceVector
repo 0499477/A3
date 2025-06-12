@@ -1,18 +1,30 @@
 #!/usr/bin/env python3
-from typing import Dict, List
+from typing import Dict, List, TypeAlias, Tuple
 
+# (dest, next_hop): distance
+DistanceTable: TypeAlias = Dict[Tuple[str, str], int]
 
 class Router:
     def __init__(self, name: str):
         self.name: str = name
-        self.DV = {}
+        self.DV:DistanceTable = {}
         return
 
-    def update_dv_from_neighbor(self, neighbor:'Router'):
+    def update_dv_from_neighbor(self, neighbor:'Router', cost:int):
         """
             Read distance vector from neighbor, and update self's distance vector.
         """
-        pass
+        next_hop:str = neighbor.name
+        for (dest, _), distance in neighbor.DV.items():
+            # D_x(y) = min{ C_x(u) + D_u(y) }
+            distance += cost
+            dv_key = (dest, next_hop)
+            
+            if dv_key not in self.DV:
+                self.DV[dv_key] = distance
+            elif self.DV[dv_key] > distance:
+                self.DV[dv_key] = distance
+        return
     
     def print_distance_table(self, t:int):
         print(f'Distance Table of router {self.name} at t={t}:')
@@ -75,10 +87,18 @@ class NetGraph:
             r2.DV[(r1.name, r1.name)] = edge.cost
         return
     
+    def dv_update(self):
+        for edge in self.edges.values():
+            r1, r2 = edge.router1, edge.router2
+            r1.update_dv_from_neighbor(neighbor=r2, cost=edge.cost)
+            r2.update_dv_from_neighbor(neighbor=r1, cost=edge.cost)
+        return
+    
     def run_distance_vector_algorithm(self):
         while True:
             self.dv_init()
-
+            self.dv_update()
+        return
 
 def read_until_(stop_line: str):
     # Read data from standard input
