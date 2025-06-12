@@ -32,3 +32,6 @@
          allows routers to learn their distances to other nodes through their neighbors' distance tables
     30 : Implement the printing of the distance vector table, printing the distance table in the same format as the sample output.
     31 : Implement the printing of the distance table during the distance vector update process.
+    32 : Add the convergence condition for the distance vector algorithm. 
+         The algorithm converges when all routers no longer update their distance tables. 
+         Exit the while loop of the algorithm and print the routing table at this time.

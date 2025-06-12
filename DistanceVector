@@ -115,15 +115,19 @@ class NetGraph:
             r2.DV[(r1.name, r1.name)] = edge.cost
         return
     
-    def dv_update(self):
+    def dv_update(self) -> bool:
         """
             Update using the distance table information of neighbor nodes
+            return true if any router updated the distance vector table
         """
         for edge in self.edges.values():
             r1, r2 = edge.router1, edge.router2
             r1.update_dv_from_neighbor(neighbor=r2, cost=edge.cost)
             r2.update_dv_from_neighbor(neighbor=r1, cost=edge.cost)
-        return
+        
+        # Test if any router update distance vector table
+        have_update = any([r.DV == r.old_DV for r in self.routers.values()])
+        return have_update
     
     def get_routers_sorted(self):
         return list(sorted(self.routers.keys()))
@@ -145,9 +149,12 @@ class NetGraph:
     
     def run_distance_vector_algorithm(self):
         while True:
+            self.dv_copy()
             self.dv_init()
-            self.dv_update()
-            self.print_distance_table()
+            if self.dv_update():
+                self.print_distance_table()
+            else:
+                break
         self.print_route_table()
         return
 
