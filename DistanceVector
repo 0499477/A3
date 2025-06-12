@@ -48,9 +48,25 @@ class Router:
         print()
         return
 
-    def print_route_table(self):
+    def _get_route_to_d(self, dest:str):
+        # find the route to destination
+        route = list(filter(lambda x: x[0] == dest, self.DV.keys()))
+        if len(route) == 0:
+            return 'INF', 'INF'
+        
+        # find the route that have minimum distance
+        best_route = min(route, key=lambda x: (self.DV[x], x[1]) )
+        distance = self.DV[best_route]
+        next_hop = best_route[1]
+        return next_hop, distance
+        
+    def print_route_table(self, routers:List[str]):
         print(f'Routing Table of router X:')
+        for dest in routers:
+            next_hop, distance = self._get_route_to_d(dest)
+            print(f"{dest},{next_hop},{distance}")
         print()
+        return
 
 class Edge:
     def __init__(self, router1: 'Router', router2: 'Router', cost: int):
@@ -145,9 +161,13 @@ class NetGraph:
     def print_route_table(self):
         # Print the route table in alphabetical order of routers
         for router_name in self.get_routers_sorted():
-            self.routers[router_name].print_route_table()
+            self.routers[router_name].print_route_table(self.get_routers_sorted())
+        return
     
     def run_distance_vector_algorithm(self):
+        """
+            Run the distance vector algorithm until convergence
+        """
         while True:
             self.dv_copy()
             self.dv_init()

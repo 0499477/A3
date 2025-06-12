@@ -35,3 +35,4 @@
     32 : Add the convergence condition for the distance vector algorithm. 
          The algorithm converges when all routers no longer update their distance tables. 
          Exit the while loop of the algorithm and print the routing table at this time.
+    33 : Implement the printing of the routing table, selecting the shortest path to the destination from the distance table as an entry in the routing table.
