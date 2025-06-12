@@ -64,7 +64,7 @@ class Router:
         
     def print_route_table(self, routers:List[str]):
         routers.remove(self.name)
-        print(f'Routing Table of router X:')
+        print(f'Routing Table of router {self.name}:')
         for dest in routers:
             next_hop, distance = self._get_route_to_d(dest)
             print(f"{dest},{next_hop},{distance}")
@@ -108,7 +108,7 @@ class NetGraph:
 
         # Create a Edge object
         edge = Edge(r1, r2, cost)
-        edge_key = repr(edge)
+        edge_key = str(edge)
         self.edges[edge_key] = edge
 
         # If cost = -1, remove the edge

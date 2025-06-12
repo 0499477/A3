@@ -37,3 +37,4 @@
          Exit the while loop of the algorithm and print the routing table at this time.
     33 : Implement the printing of the routing table, selecting the shortest path to the destination from the distance table as an entry in the routing table.
     34 : Fix some bugs that originated from careless mistakes. For details, please refer to the git diff.
+    35 : Fix two bugs: one is using an incorrect router name when printing the routing table, and the other is using an incorrect key to store the edge during edge updates.
