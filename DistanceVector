@@ -51,6 +51,9 @@ class NetGraph:
         if cost == -1:
             del self.edges[edge_key]
         return
+    
+    def run_distance_vector_algorithm(self):
+        pass
 
 
 def read_until_(stop_line: str):
@@ -75,12 +78,17 @@ def main():
     start_section = read_until_(stop_line='UPDATE')
     for line in start_section:
         nx.add_edge(line)
+    nx.run_distance_vector_algorithm()
         
     # UPDATE section
     update_section = read_until_(stop_line='END')
     for line in update_section:
         nx.add_edge(line)
+    
+    if len(update_section) > 0:
+        nx.run_distance_vector_algorithm()
 
+    return
 
 if __name__ == '__main__':
     main()
