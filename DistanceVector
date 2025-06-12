@@ -34,10 +34,17 @@ class NetGraph:
         return self.routers[name]
     
     def add_edge(self, line:str) -> None:
-        r1, r2, cost = line.split(' ')
+        r1_name, r2_name, cost = line.split(' ')
+        # Add router if router not exist
+        r1 = self.add_router(r1_name)
+        r2 = self.add_router(r2_name)
+        
+        # Create a Edge object
         edge = Edge(r1, r2, int(cost))
         edge_key = repr(edge)
         self.edges[edge_key] = edge
+        
+        # If cost = -1, remove the edge
         if cost == -1:
             del self.edges[edge_key]
         return
