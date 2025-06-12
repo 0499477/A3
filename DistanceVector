@@ -7,6 +7,18 @@ class Router:
         self.DV = {}
         return
     
+class Edge:
+    def __init__(self, router1:'Router', router2:'Router', cost:int):
+        self.router1:Router = router1
+        self.router2:Router = router2
+        
+        # Set in alphabetical order
+        if self.router1.name > self.router2.name:
+            self.router1, self.router2 = self.router2, self.router1
+        self.cost:int = cost
+    
+    def __repr__(self) -> str:
+        return str((self.router1.name, self.router2.name))
 
 
 def read_until_(stop_line:str):
