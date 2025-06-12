@@ -19,3 +19,5 @@
     19 : There are still configuration issues missing. Modify it again.
     20 : Read the data of each section from the standard input.
     21 : Define the Edge class to store the distance information between adjacent routers.
+    22 : Define the NetGraph class to manage the routes and edges in the network, and implement the functions for adding routes and edges.
+    

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import List
+from typing import Dict, List
 
 class Router:
     def __init__(self, name:str):
@@ -17,9 +17,32 @@ class Edge:
             self.router1, self.router2 = self.router2, self.router1
         self.cost:int = cost
     
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return str((self.router1.name, self.router2.name))
 
+class NetGraph:
+    def __init__(self):
+        self.routers:Dict[str, Router] = {}
+        self.edges:Dict[str, Edge] = {}
+    
+    def add_router(self, name:str) -> Router:
+        """
+            Add router to the network if notexist, return the router object
+        """
+        if name not in self.routers:
+            self.routers[name] = Router(name)
+        return self.routers[name]
+    
+    def add_edge(self, line:str) -> None:
+        r1, r2, cost = line.split(' ')
+        edge = Edge(r1, r2, int(cost))
+        edge_key = repr(edge)
+        self.edges[edge_key] = edge
+        if cost == -1:
+            del self.edges[edge_key]
+        return
+    
+    
 
 def read_until_(stop_line:str):
     # Read data from standard input
