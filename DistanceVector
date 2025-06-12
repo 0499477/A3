@@ -64,7 +64,24 @@ def read_until_(stop_line: str):
     return data
 
 
-if __name__ == '__main__':
+def main():
+    nx = NetGraph()
+    # Add router
     init_section = read_until_(stop_line='START')
+    for name in init_section:
+        nx.add_router(name)
+        
+    # Link update
     start_section = read_until_(stop_line='UPDATE')
-    end_section = read_until_(stop_line='END')
+    for line in start_section:
+        nx.add_edge(line)
+        
+    # UPDATE section
+    update_section = read_until_(stop_line='END')
+    for line in update_section:
+        nx.add_edge(line)
+
+
+if __name__ == '__main__':
+    main()
+
