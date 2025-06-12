@@ -24,3 +24,4 @@
     24 : Format the code using VSCode.
     25 : In the main function, read the input and call the functions of NetGraph to add routers or perform link updates.
     26 : Add the run_distance_vector_algorithm() function interface, which needs to implement the distance vector update and print the update process and the final routing table in the given format.
+    27 : In the Router class, define the functions for printing the distance table and routing table, and define the function for updating the current distance table using the neighbors' distance tables.

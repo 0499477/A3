@@ -8,6 +8,19 @@ class Router:
         self.DV = {}
         return
 
+    def update_dv_from_neighbor(self, neighbor:'Router'):
+        """
+            Read distance vector from neighbor, and update self's distance vector.
+        """
+        pass
+    
+    def print_distance_table(self, t:int):
+        print(f'Distance Table of router {self.name} at t={t}:')
+        print()
+
+    def print_route_table(self):
+        print(f'Routing Table of router X:')
+        print()
 
 class Edge:
     def __init__(self, router1: 'Router', router2: 'Router', cost: int):
