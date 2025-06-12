@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+from typing import List
+
+class Router:
+    def __init__(self, name:str):
+        self.name:str = name
+        self.DV = {}
+        return
+    
+
+
+def read_until_(stop_line:str):
+    # Read data from standard input
+    data = []
+    while True:
+        line = input().strip()
+        if line == stop_line:
+            return data
+        data.append(line)
+    return data
+
+if __name__ == '__main__':
+    init_section = read_until_(stop_line='START')
+    start_section = read_until_(stop_line='UPDATE')
+    end_section = read_until_(stop_line='END')

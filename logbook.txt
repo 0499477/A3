@@ -1,0 +1,20 @@
+	1  ：Read the data of each section from the standard input.
+    2   ：Modify the code to solve the problem of not being able to hand in the score.
+    3   ：Modify the code again to solve the problem of not being able to hand in the score.
+    4  : Resubmit the code to solve the problem of not being able to hand in the score.
+    5  : Read the title carefully and find the problem with the file name. Modify the file name.
+    6  : There was a small score distribution issue in the last submission, and there was a lack of configuration problems. Please make some modifications.
+    7  : There are still configuration issues missing. Modify it again.
+    8  : There are still configuration issues missing. Modify it again.
+    9  : There are still configuration issues missing. Modify it again.
+    10 : There are still configuration issues missing. Modify it again.
+    11 : There are still configuration issues missing. Modify it again.
+    12 : There are still configuration issues missing. Modify it again.
+    13 : There are still configuration issues missing. Modify it again.
+    14 : There are still configuration issues missing. Modify it again.
+    15 : There are still configuration issues missing. Modify it again.
+    16 : There are still configuration issues missing. Modify it again.
+    17 : There are still configuration issues missing. Modify it again.
+    18 : There are still configuration issues missing. Modify it again.
+    19 : There are still configuration issues missing. Modify it again.
+    20 : Read the data of each section from the standard input.
