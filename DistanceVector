@@ -65,8 +65,19 @@ class NetGraph:
             del self.edges[edge_key]
         return
     
+    def dv_init(self):
+        """
+            Use edge information to directly set the router's distance table to it's neighbour
+        """
+        for edge in self.edges.values():
+            r1, r2 = edge.router1, edge.router2
+            r1.DV[(r2.name, r2.name)] = edge.cost
+            r2.DV[(r1.name, r1.name)] = edge.cost
+        return
+    
     def run_distance_vector_algorithm(self):
-        pass
+        while True:
+            self.dv_init()
 
 
 def read_until_(stop_line: str):
