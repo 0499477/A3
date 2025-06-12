@@ -17,6 +17,8 @@ class Router:
         """
         next_hop:str = neighbor.name
         for (dest, _), distance in neighbor.old_DV.items():
+            if dest == self.name:
+                continue
             # D_x(y) = min{ C_x(u) + D_u(y) }
             distance += cost
             dv_key = (dest, next_hop)
@@ -61,6 +63,7 @@ class Router:
         return next_hop, distance
         
     def print_route_table(self, routers:List[str]):
+        routers.remove(self.name)
         print(f'Routing Table of router X:')
         for dest in routers:
             next_hop, distance = self._get_route_to_d(dest)
@@ -101,15 +104,16 @@ class NetGraph:
         # Add router if router not exist
         r1 = self.add_router(r1_name)
         r2 = self.add_router(r2_name)
+        cost = int(cost)
 
         # Create a Edge object
-        edge = Edge(r1, r2, int(cost))
+        edge = Edge(r1, r2, cost)
         edge_key = repr(edge)
         self.edges[edge_key] = edge
 
         # If cost = -1, remove the edge
         if cost == -1:
-            del self.edges[edge_key]
+            self.edges.pop(edge_key)
         return
     
     def dv_copy(self):
@@ -142,7 +146,7 @@ class NetGraph:
             r2.update_dv_from_neighbor(neighbor=r1, cost=edge.cost)
         
         # Test if any router update distance vector table
-        have_update = any([r.DV == r.old_DV for r in self.routers.values()])
+        have_update = any([r.DV != r.old_DV for r in self.routers.values()])
         return have_update
     
     def get_routers_sorted(self):
@@ -184,7 +188,7 @@ def read_until_(stop_line: str):
     while True:
         line = input().strip()
         if line == stop_line:
-            return data
+            break
         data.append(line)
     return data
 

@@ -36,3 +36,4 @@
          The algorithm converges when all routers no longer update their distance tables. 
          Exit the while loop of the algorithm and print the routing table at this time.
     33 : Implement the printing of the routing table, selecting the shortest path to the destination from the distance table as an entry in the routing table.
+    34 : Fix some bugs that originated from careless mistakes. For details, please refer to the git diff.
