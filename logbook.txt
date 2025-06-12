@@ -31,3 +31,4 @@
          This is the core of the distance vector algorithm, 
          allows routers to learn their distances to other nodes through their neighbors' distance tables
     30 : Implement the printing of the distance vector table, printing the distance table in the same format as the sample output.
+    31 : Implement the printing of the distance table during the distance vector update process.

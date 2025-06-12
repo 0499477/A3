@@ -8,6 +8,7 @@ class Router:
     def __init__(self, name: str):
         self.name: str = name
         self.DV:DistanceTable = {}
+        self.old_DV:DistanceTable = {}
         return
 
     def update_dv_from_neighbor(self, neighbor:'Router', cost:int):
@@ -15,7 +16,7 @@ class Router:
             Read distance vector from neighbor, and update self's distance vector.
         """
         next_hop:str = neighbor.name
-        for (dest, _), distance in neighbor.DV.items():
+        for (dest, _), distance in neighbor.old_DV.items():
             # D_x(y) = min{ C_x(u) + D_u(y) }
             distance += cost
             dv_key = (dest, next_hop)
@@ -69,6 +70,7 @@ class NetGraph:
     def __init__(self):
         self.routers: Dict[str, Router] = {}
         self.edges: Dict[str, Edge] = {}
+        self.t:int = 0
 
     def add_router(self, name: str) -> Router:
         """
@@ -94,10 +96,19 @@ class NetGraph:
             del self.edges[edge_key]
         return
     
+    def dv_copy(self):
+        """
+            Copy the router's DV to old_DV, and clear DV
+        """
+        for router in self.routers.values():
+            router.old_DV = router.DV
+            router.DV = {}
+        return
+    
     def dv_init(self):
         """
             Use edge information to directly set the router's distance table to it's neighbour
-        """
+        """        
         for edge in self.edges.values():
             r1, r2 = edge.router1, edge.router2
             r1.DV[(r2.name, r2.name)] = edge.cost
@@ -114,10 +125,30 @@ class NetGraph:
             r2.update_dv_from_neighbor(neighbor=r1, cost=edge.cost)
         return
     
+    def get_routers_sorted(self):
+        return list(sorted(self.routers.keys()))
+    
+    def print_distance_table(self):
+        # Print the distance table in alphabetical order of routers
+        for router_name in self.get_routers_sorted():
+            self.routers[router_name].print_distance_table(self.t, self.get_routers_sorted())
+        self.t += 1
+        return
+    
+    def check_update(self):
+        pass
+    
+    def print_route_table(self):
+        # Print the route table in alphabetical order of routers
+        for router_name in self.get_routers_sorted():
+            self.routers[router_name].print_route_table()
+    
     def run_distance_vector_algorithm(self):
         while True:
             self.dv_init()
             self.dv_update()
+            self.print_distance_table()
+        self.print_route_table()
         return
 
 def read_until_(stop_line: str):
